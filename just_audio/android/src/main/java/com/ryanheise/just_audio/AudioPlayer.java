@@ -390,14 +390,13 @@ public class AudioPlayer implements MethodCallHandler, Player.Listener, Metadata
         }
         errorCount++;
         if (player.hasNextMediaItem() && currentIndex != null && errorCount <= 5) {
-            int nextIndex = currentIndex + 1;
             Timeline timeline = player.getCurrentTimeline();
             // This condition is due to: https://github.com/ryanheise/just_audio/pull/310
-            if (nextIndex < timeline.getWindowCount()) {
+            if (currentIndex < timeline.getWindowCount()) {
                 // TODO: pass in initial position here.
                 player.setMediaSource(mediaSource);
                 player.prepare();
-                player.seekTo(nextIndex, 0);
+                player.seekTo(currentIndex, 0);
             }
         }
     }
